@@ -1,0 +1,74 @@
+@use "responsive";
+
+.dialog-container {
+  max-width: 100%;
+  height: 100%;
+  background: white;
+  min-width: 350px;
+  @include responsive.for-tablet {
+    width: 350px;
+  }
+}
+
+.dialog-header {
+  background-color: #f1f1f1;
+  color: #064595;
+  font-size: large;
+  padding: 5px;
+  font-weight: bold;
+  text-align: center;
+  padding-left: 15px;
+  text-transform: uppercase;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #2d3958;
+}
+
+.dialog-button {
+  font-weight: bold;
+}
+
+.yes-button:not([disabled]) {
+  color: white;
+
+  &:hover {
+    background-color: #064595;
+  }
+}
+
+.cancel-button {
+  color: white;
+
+  &:hover {
+    background-color: #064595;
+  }
+}
+
+.error {
+  color: red;
+}
+
+.comment-section {
+  background-color: white;
+
+  .comment-input {
+    width: 330px;
+    min-width: 330px;
+    max-width: 330px;
+    min-height: 100px;
+    padding: 10px;
+    background-color: white;
+    border: none;
+    font-size: 16px;
+    color: #333;
+    margin-right: 20px;
+  }
+
+  .comment-section label {
+    font-size: 16px;
+    color: #333;
+  }
+}

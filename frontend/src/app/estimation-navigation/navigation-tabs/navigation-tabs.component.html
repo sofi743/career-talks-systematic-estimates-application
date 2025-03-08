@@ -1,0 +1,17 @@
+<div class="custom-tabs hide-mobile">
+  <div
+    class="tab"
+    *ngFor="let task of tasks; let i = index"
+    [class.active]="i === selectedIndex && !disabled"
+    [class.disabled]="isTabDisabled(task)"
+    (click)="selectTask(task, i)">
+    {{ task.name }}
+  </div>
+</div>
+<div class="show-mobile">
+  <mat-form-field appearance="fill">
+  <mat-select class="mat-select" [value]="getSelectedTask()" [disabled]="disabled">
+    <mat-option class="mat-option" [value]="task" *ngFor="let task of tasks; let i=index;" (click)="selectTask(task, i)" [disabled]="isTabDisabled(task)">{{task.name}}</mat-option>
+  </mat-select>
+  </mat-form-field>
+</div>

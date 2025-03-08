@@ -1,0 +1,70 @@
+$phone: 667px;
+$tablet: 1024px;
+$tablet-inferior: 1023px;
+$desktop: 1366px;
+$large-screen: 1670px;
+$small-screen: 400px;
+
+@mixin for-tablet {
+  @media (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin for-desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin large-screen {
+  @media (min-width: $large-screen) {
+    @content
+  }
+}
+
+@mixin small-screen {
+  @media (max-width: $small-screen) {
+    @content;
+  }
+}
+
+@mixin button-font-size() {
+  font-size: 10px;
+  @include for-tablet {
+    font-size: 14px;
+  }
+}
+
+@mixin font-size() {
+  font-size: 12px;
+  @include for-tablet {
+    font-size: 16px;
+  }
+  @include for-desktop {
+    font-size: 18px;
+  }
+}
+
+@mixin title-font-size() {
+  font-size: medium;
+  @include for-tablet {
+    font-size: x-large;
+  }
+  @include for-desktop {
+    font-size: xx-large;
+  }
+}
+
+
+.hide-mobile {
+  @media (max-width: $tablet-inferior) {
+    display: none !important;
+  }
+}
+
+.show-mobile {
+  @include for-tablet {
+    display: none !important;
+  }
+}

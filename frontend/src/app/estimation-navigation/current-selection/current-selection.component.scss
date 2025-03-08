@@ -1,0 +1,62 @@
+:host {
+  width: 100%;
+}
+p {
+  font-size: 1em;
+  margin: 0;
+  text-align: center;
+
+  &.callsign {
+    margin-bottom: 2rem;
+  }
+
+  &.configuration {
+    margin-top: 1rem;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 3vh;
+}
+
+.title {
+  text-align: center;
+  border-bottom: 1px solid white;
+  padding: 10px;
+  width: 70%;
+  font-size: 1.2em;
+  margin: 20px 0;
+}
+
+.current-info {
+  width: 70%;
+
+  .info {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 10px;
+
+    .icon {
+      padding-right: 10px;
+      width: 20px;
+      height: 20px;
+    }
+    .est{
+      padding-right: 6px;
+      font-size: 24px;
+    }
+    .category{
+      padding-right: 0.5rem;
+      font-weight: bold;
+    }
+    .text{
+      font-weight: 500;
+    }
+  }
+}

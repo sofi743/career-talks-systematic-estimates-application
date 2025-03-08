@@ -1,0 +1,48 @@
+<div *ngIf="!!datasource" class="mvp">
+  <div class="mvp-content">
+    <button (click)="changeExpansion()" [disabled]="!datasource?.tasks?.length" class="add-mvp-button" mat-icon-button>
+      <mat-icon>{{ currentIcon }}</mat-icon>
+    </button>
+    <img alt="Mvp" class="icon" src="./assets/mvpavatar.svg"/>
+    <h3 *ngIf="!(isInEditMode$ | async)" class="mvp-name">{{ datasource.name }}</h3>
+      <input
+        matInput
+        class="mvp-input"
+        #editMvp
+        (focusout)="stopEdit()"
+        (keyup.enter)="stopEdit()"
+        *ngIf="isInEditMode$ | async"
+        [formControl]="editMvpInput"
+        placeholder="MVP"
+      />
+  </div>
+  <div>
+    <button (click)="addStoryTask()" [disabled]="isLoadingAdd$ | async" class="add-mvp-button" mat-icon-button>
+      <ng-container *ngIf="!(isLoadingAdd$ | async); else loading">
+        <mat-icon>add</mat-icon>
+      </ng-container>
+    </button>
+    <button (click)="showContextMenu()" class="add-mvp-button" mat-icon-button [matMenuTriggerFor]="contextMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="!!(isExpanded$ | async) && !!datasource" class="tasks-content">
+  <div>
+      <app-task *ngFor="let item of datasource.tasks"
+        (taskDeleted)="taskDeleted()"
+        (taskIsUpdating)="emitUpdate($event)"
+        (taskUpdated)="emitTaskUpdated()"
+        [datasource]="item"
+      ></app-task>
+  </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-spinner color="primary" diameter="20" mode="indeterminate"></mat-progress-spinner>
+</ng-template>
+<mat-menu #contextMenu>
+  <button mat-menu-item (click)="startEdit()" label="EDIT">EDIT</button>
+  <button mat-menu-item (click)="deleteMvp(datasource)" label="DELETE">DELETE</button>
+</mat-menu>

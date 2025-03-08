@@ -1,0 +1,19 @@
+<form [formGroup]="formGroup" class="container">
+  <div class="container">
+    <h3>Login</h3>
+    <div class="content">
+      <mat-form-field appearance="outline" color="primary">
+        <input matInput placeholder="CALLSIGN" #callsignInput formControlName="callsign" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" color="primary">
+        <mat-select placeholder="ROLE" formControlName="role">
+          <mat-option [value]="Role.FEATURE_LEAD">Feature lead</mat-option>
+          <mat-option [value]="Role.PARTICIPANT">Participant</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button color="primary" mat-button (click)="onJoin()" [disabled]="formGroup.invalid">Join</button>
+  </div>
+</form>

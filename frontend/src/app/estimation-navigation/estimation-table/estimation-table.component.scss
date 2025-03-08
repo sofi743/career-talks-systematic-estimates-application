@@ -1,0 +1,227 @@
+@use "responsive";
+.table-container {
+  max-width: 85vw;
+  max-height: 70vh;
+  overflow-y: auto;
+  display: block;
+  position: relative;
+  overflow-x: visible;
+  padding: 0 3vh;
+  font-size: 12px;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+table {
+  display: contents;
+  border-collapse: collapse;
+  @include responsive.font-size;
+  width: 85%;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.thead-row {
+  position: sticky;
+  background-color: #212635;
+  color: white;
+  top: 0;
+  padding: 0;
+  height: 8vh;
+  min-height: 8vh;
+  border-bottom: none;
+}
+
+.thead-row-two {
+  position: sticky;
+  background-color: #212635;
+  color: white;
+  top: 8vh;
+  border-bottom: none;
+}
+
+.tbody {
+  background-color: white;
+  color: black;
+}
+
+td {
+  text-align: center;
+  padding: 1.5vh;
+  word-break: keep-all;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+td:last-child {
+  border-bottom: none;
+}
+
+.odd {
+  background-color: #f6f7f9;
+}
+
+td:first-child {
+  text-align: left;
+  text-transform: none;
+  max-width: 70ch;
+}
+
+.top-left-corner {
+  border-radius: 20px 0 0 0;
+}
+
+.bottom-left-corner {
+  border-radius: 0 0 0 20px;
+}
+
+.callsign {
+  border-left: solid 1px #f1f1f1;
+  max-width: 10rem;
+  text-transform: uppercase;
+}
+
+.finalcallsign {
+  border-left: solid 1px #f1f1f1;
+  max-width: 10rem;
+  text-transform: uppercase;
+  border-radius: 0 20px 0 0;
+}
+
+.best {
+  border-left: solid 1px #f1f1f1;
+}
+
+.comments {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 0;
+
+  i {
+    color: #212635;
+  }
+}
+
+.input-cell {
+  max-width: 6rem;
+}
+
+input[type='number'] {
+  width: 100%;
+  padding: 10%;
+  min-width: 40px;
+  border: 1px solid #c8c8c8;
+  box-sizing: border-box;
+  height: auto;
+  border-radius: 5px;
+  @include responsive.font-size;
+  text-align: right;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.selectable {
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c6d5ed5c;
+  }
+}
+
+.old {
+    pointer-events: none;
+    cursor: default;
+  }
+
+.best.active {
+  background-color: #b1dcaf;
+  cursor: pointer;
+}
+.likely.active {
+  background-color: #f1dba0;
+  cursor: pointer;
+}
+.worst.active {
+  background-color: #dcaeae;
+  cursor: pointer;
+}
+
+.total-row {
+  position: sticky;
+  bottom: 0;
+  background: #2d3958;
+  color: white;
+
+  .last-total {
+    border-radius: 0 0 20px 0;
+  }
+}
+
+
+.comment-button {
+  background-color: #2d3958;
+  min-width: 44px;
+  padding: 10px 0;
+  border: none;
+  border-radius: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 3px 3px 8px #9a9a9a;
+
+  i.material-icons {
+    color: #f1f1f1;
+    font-size: 24px;
+  }
+
+  &:hover {
+    background-color: #064595;
+  }
+}
+
+.task-comment {
+  background-color: #f1f1f1;
+}
+
+.empty {
+  background-color: #f1f1f1;
+  color: #f1f1f1;
+  z-index: 2;
+}
+
+.field-rows {
+  max-height: 50vh;
+}
+
+.current-task {
+  font-weight: bold;
+}
+
+.last-callsign {
+  border-radius: 0 20px 0 0;
+
+}
+
+.worst-round {
+  border-radius: 0 0 20px 0;
+}
+
+.table-container td.description-cell {
+  max-width: 15vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: table-cell;
+  white-space: nowrap;
+  word-wrap: break-word;
+  cursor: pointer;
+}

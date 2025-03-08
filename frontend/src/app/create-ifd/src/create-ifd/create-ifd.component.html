@@ -1,0 +1,75 @@
+<div class="ifd">
+  <div class="selected hide-mobile">{{ title }}</div>
+  <div class="users">
+    <button
+      (click)="previousPage()"
+      *ngIf="(getCurrentPage$() | async) > 0"
+      [disabled]="(getCurrentPage$() | async) === 0"
+      class="arrow"
+    >
+      <mat-icon>arrow_back_ios_new</mat-icon>
+    </button>
+    <div *ngFor="let user of getPaginatedUsers$() | async" class="user-info">
+      <ng-container *ngIf="!user.offline; else outline">
+        <mat-icon>account_circle</mat-icon>
+      </ng-container>
+      <ng-template #outline>
+        <mat-icon (click)="deleteUser(user)" class="close">cancel</mat-icon>
+        <img alt="Offline user" class="account" src="./assets/account-icon.svg" />
+      </ng-template>
+      <span class="callsign">{{ user.callsign }}</span>
+    </div>
+    <button
+      (click)="nextPage()"
+      *ngIf="(getCurrentPage$() | async) < totalPages - 1"
+      [disabled]="(getCurrentPage$() | async) === totalPages - 1"
+      class="arrow"
+    >
+      <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+    <button (click)="addOfflineUser()" class="offline-button" mat-icon-button>
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="totalPages > 1" class="page-number">{{ (getCurrentPage$() | async) + 1 }} / {{ totalPages }}</div>
+  <div class="ifd-container">
+    <div class="panel">
+      <div class="panel-header">IFD</div>
+      <div class="button-header">
+        <button (click)="addMvp()" mat-button>
+          <mat-icon class="icon">add_circle</mat-icon>
+          <mat-label>New MVP</mat-label>
+        </button>
+        <button (click)="collapseAll()" mat-button>
+          <mat-icon class="icon">unfold_less</mat-icon>
+          <mat-label>Collapse All</mat-label>
+        </button>
+        <button (click)="expandAll()" mat-button>
+          <mat-icon class="icon">unfold_more</mat-icon>
+          <mat-label>Expand All</mat-label>
+        </button>
+      </div>
+      <div *ngIf="ifd" class="mvp-list">
+        <app-mvp
+          *ngFor="let item of ifd.mvps"
+          (isUpdating)="isLoading = $event"
+          [datasource]="item"
+          [parentComponent]="this"
+        ></app-mvp>
+        <ng-template #mvpTemplate let-item="item"> </ng-template>
+      </div>
+    </div>
+    <div *ngIf="isLoading$ | async" class="loading-screen">
+      <mat-progress-spinner color="primary" diameter="60" mode="indeterminate"></mat-progress-spinner>
+    </div>
+  </div>
+  <div class="button-container">
+    <button (click)="startEstimation()" *ngIf="!(isLoadingStart$ | async); else loading" mat-button type="submit">
+      <span>{{ startButton }}</span>
+    </button>
+  </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-spinner color="primary" diameter="20" mode="indeterminate"></mat-progress-spinner>
+</ng-template>
