@@ -111,11 +111,10 @@ export class EstimationTableComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
   }
-  public sortTaskRows = (a: KeyValue<string, TaskRow>, b: KeyValue<string, TaskRow>): number => {
-    const taskDetailA = this.selectedTask?.taskFields.find(taskField => taskField.keyName === a.key);
-    const taskDetailB = this.selectedTask?.taskFields.find(taskField => taskField.keyName === b.key);
 
-    return (taskDetailA?.id || 0) - (taskDetailB?.id || 0);
+  // TODO 2.c. sort rows based on id
+  public sortTaskRows = (): number => {
+    return 0;
   };
 
   public saveFinalEstimations() {
@@ -127,14 +126,9 @@ export class EstimationTableComponent implements OnInit, OnDestroy, OnChanges {
     return this.estimationNavigationService.saveData(finalEstimations);
   }
 
-  public calculateTotals(): void {
-    this.finalTotals = { best: 0, likely: 0, worst: 0 };
-    for (const keyName in this.finalEstimates) {
-      this.finalTotals.best += this.finalEstimates[keyName].best || 0;
-      this.finalTotals.likely += this.finalEstimates[keyName].likely || 0;
-      this.finalTotals.worst += this.finalEstimates[keyName].worst || 0;
-    }
-  }
+  // TODO ex 2.a. create a method to calculate totals for each keyname based on finalEstimates
+  // TODO ex 2.b. call the method when needed
+  public calculateTotals(): void {}
 
   public changeBestEstimate(key: string, value: number, index: number, userIndex: number) {
     if (isEqual(this.activeBestIndexes[index], { userIndex: userIndex })) {
@@ -143,6 +137,7 @@ export class EstimationTableComponent implements OnInit, OnDestroy, OnChanges {
       this.setBestEstimate(key, value, index, userIndex);
     }
   }
+
   public changeLikelyEstimate(key: string, value: number, index: number, userIndex: number) {
     if (isEqual(this.activeLikelyIndexes[index], { userIndex: userIndex })) {
       this.setLikelyEstimate(key, 0, index, -1);
@@ -162,19 +157,16 @@ export class EstimationTableComponent implements OnInit, OnDestroy, OnChanges {
   public setBestEstimate(key: string, value: number, index: number, userIndex: number): void {
     this.activeBestIndexes[index] = { userIndex: userIndex };
     this.finalEstimates[key].best = value;
-    this.calculateTotals();
   }
 
   public setLikelyEstimate(key: string, value: number, index: number, userIndex: number): void {
     this.activeLikelyIndexes[index] = { userIndex: userIndex };
     this.finalEstimates[key].likely = value;
-    this.calculateTotals();
   }
 
   public setWorstEstimate(key: string, value: number, index: number, userIndex: number): void {
     this.activeWorstIndexes[index] = { userIndex: userIndex };
     this.finalEstimates[key].worst = value;
-    this.calculateTotals();
   }
 
   private initializeFinalEstimates(): void {
@@ -257,16 +249,13 @@ export class EstimationTableComponent implements OnInit, OnDestroy, OnChanges {
 
   public deselectBest(i: number, userIndex: number) {
     this.activeBestIndexes[i] = { userIndex: userIndex };
-    this.calculateTotals();
   }
 
   public deselectLikely(i: number, userIndex: number) {
     this.activeLikelyIndexes[i] = { userIndex: userIndex };
-    this.calculateTotals();
   }
 
   public deselectWorst(i: number, userIndex: number) {
     this.activeWorstIndexes[i] = { userIndex: userIndex };
-    this.calculateTotals();
   }
 }

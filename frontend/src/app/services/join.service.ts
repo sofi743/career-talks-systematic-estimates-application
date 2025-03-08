@@ -13,7 +13,6 @@ import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root'
 })
-//todo rename this to user.service
 export class JoinService {
   private callsignSubject = new ReplaySubject<string>(1);
   private roleSubject = new ReplaySubject<Role>(1);

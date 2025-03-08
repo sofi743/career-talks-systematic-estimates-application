@@ -46,7 +46,7 @@
       </ng-container>
       <td class="empty thead-row-two"></td>
     </tr>
-    <tr *ngFor="let row of taskRows | keyvalue: sortTaskRows; let i = index" class="tbody">
+    <tr *ngFor="let row of taskRows | keyvalue; let i = index" class="tbody">
       <td
         class="description-cell"
         matTooltip="{{ taskJsonService.getLabelOfKey(row.key) }}"
@@ -99,18 +99,11 @@
       </ng-container>
       <!-- FINAL estimates with input fields -->
       <td *ngIf="isCurrentTaskSelected() && isCurrentUserFeatureLead()" class="input-cell">
-        <input
-          (input)="deselectBest(i, -1)"
-          (ngModelChange)="calculateTotals()"
-          [(ngModel)]="finalEstimates[row.key].best"
-          placeholder="B"
-          type="number"
-        />
+        <input (input)="deselectBest(i, -1)" [(ngModel)]="finalEstimates[row.key].best" placeholder="B" type="number" />
       </td>
       <td *ngIf="isCurrentTaskSelected() && isCurrentUserFeatureLead()" class="input-cell">
         <input
           (input)="deselectLikely(i, -1)"
-          (ngModelChange)="calculateTotals()"
           [(ngModel)]="finalEstimates[row.key].likely"
           placeholder="L"
           type="number"
@@ -119,7 +112,6 @@
       <td *ngIf="isCurrentTaskSelected() && isCurrentUserFeatureLead()" class="input-cell">
         <input
           (input)="deselectWorst(i, -1)"
-          (ngModelChange)="calculateTotals()"
           [(ngModel)]="finalEstimates[row.key].worst"
           placeholder="W"
           type="number"

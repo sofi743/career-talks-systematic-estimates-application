@@ -23,7 +23,11 @@ export class LoginComponent {
   public roleControl: UntypedFormControl = this.fb.control('', [Validators.required]);
   public formGroup: UntypedFormGroup;
 
-  constructor(public fb: FormBuilder, private navigationService: NavigationService, private joinService: JoinService) {
+  constructor(
+    public fb: FormBuilder,
+    private navigationService: NavigationService,
+    private joinService: JoinService
+  ) {
     this.formGroup = fb.group({
       callsign: this.callsignInputControl,
       role: this.roleControl
@@ -35,6 +39,7 @@ export class LoginComponent {
     const role = this.formGroup.get('role')?.value;
 
     this.joinService.registerUser(callsign, role).subscribe(_ => {
+      // TODO ex 1.c. observe Network tab in browser to catch REST request and observe with breakbpoint in java
       this.navigationService.navigate({ navigationActions: NavigationActionsEnum.SUBMIT_ESTIMATION });
     });
   }

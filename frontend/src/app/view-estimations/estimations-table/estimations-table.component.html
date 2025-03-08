@@ -80,32 +80,9 @@
   </div>
 
   <div class="action-buttons" *ngIf="isCurrentUserFeatureLead()">
-    <button
-      *ngIf="!(isInEditMode$ | async) && this._dashboardState !== EstimationState.COMPLETED; else save"
-      mat-button
-      class="action-button round-button"
-      (click)="goIntoEditMode()"
-    >
-      <mat-icon>edit</mat-icon>
-    </button>
+    <!--TODO 3.c. add button to edit and call method -->
     <ng-template #save>
-      <button
-        mat-button
-        class="action-button round-button"
-        (click)="saveEditedItems()"
-        *ngIf="this._dashboardState !== EstimationState.COMPLETED"
-        [disabled]="!(isChanged$ | async)"
-      >
-        <mat-icon>save</mat-icon>
-      </button>
-      <button
-        mat-button
-        class="action-button round-button"
-        *ngIf="this._dashboardState !== EstimationState.COMPLETED"
-        (click)="cancel()"
-      >
-        <mat-icon>cancel</mat-icon>
-      </button>
+      <!-- TODO 3.d. add two buttons - add and cancel-->
     </ng-template>
   </div>
 </div>
@@ -116,7 +93,7 @@
       matInput
       type="number"
       (change)="update(item.mvp, row, field, $event)"
-      [ngClass]="{ 'edit-mode': isInEditMode$ | async }"
+      class="edit-mode"
       [value]="row.totalEstimation?.[field]"
     />
   </div>

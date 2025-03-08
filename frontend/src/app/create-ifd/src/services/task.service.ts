@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Task } from '../../../models/task.model';
 import { HttpUtils } from '../../../utils/http.utils';
 
-//todo to be renamed in task-api.service
 /**
  * API service that handles task REST calls to database
  */

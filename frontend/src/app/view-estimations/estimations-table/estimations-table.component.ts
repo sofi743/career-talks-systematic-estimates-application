@@ -29,7 +29,7 @@ export class EstimationsTableComponent implements OnInit, OnDestroy {
     totalEstimation: TotalEstimation;
   }>;
   public columns: string[] = ['category', 'best', 'likely', 'worst', '95%', 'comments'];
-  public isInEditMode$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  // TODO 3.a. create isInEditMode$ subject
   public showToast$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isChanged$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private _destroy$: Subject<void> = new Subject<void>();
@@ -60,27 +60,6 @@ export class EstimationsTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.isInEditMode$
-      .asObservable()
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(value => {
-        if (value) {
-          setTimeout(() => {
-            for (let input of this.inputs) {
-              input.nativeElement.addEventListener(
-                'paste',
-                (event: ClipboardEvent) => {
-                  if ((event.target as HTMLInputElement).type === 'number') {
-                    this.restrictInput(event.clipboardData.getData('text'));
-                  }
-                  event.stopImmediatePropagation();
-                },
-                true
-              );
-            }
-          }, 0.3);
-        }
-      });
     this.createIfdService.getExistentIfd().subscribe(ifd => {
       if (!!ifd) {
         this.updateDataSource(ifd);
@@ -112,27 +91,14 @@ export class EstimationsTableComponent implements OnInit, OnDestroy {
     return this.userService.isCurrentUserFeatureLead();
   }
 
-  public goIntoEditMode(): void {
-    this.isInEditMode$.next(true);
-    this.showToast$.next(true);
-  }
+  // TODO 3.b. emit value when clicking on the button
+  public goIntoEditMode(): void {}
 
-  public saveEditedItems(): void {
-    this.isInEditMode$.next(false);
-    this.isChanged$.next(false);
-    this.ifdTotalService
-      .updateTotalsAndComments(this.ifd)
-      .pipe(switchMap(() => this.createIfdService.getExistentIfd()))
-      .subscribe();
-  }
+  // TODO 3.e. create save method
+  public saveEditedItems(): void {}
 
-  public cancel(): void {
-    this.isInEditMode$.next(false);
-    this.isChanged$.next(false);
-    this.createIfdService.getExistentIfd().subscribe(ifd => {
-      this.updateDataSource(ifd);
-    });
-  }
+  // TODO 3.f. create cancel method
+  public cancel(): void {}
 
   /**
    * Updates the values of the total estimations (in frontend only)
