@@ -1,0 +1,16 @@
+<div class="dialog-container">
+  <h1 mat-dialog-title (close)="onCancel()" class="dialog-header">{{ data.title }}</h1>
+  <mat-dialog-content class="comment-section">
+    <textarea
+      rows="4"
+      id="comment"
+      class="comment-input"
+      placeholder="Write your comment here."
+      [(ngModel)]="task.comments"
+    ></textarea>
+  </mat-dialog-content>
+  <mat-dialog-actions class="dialog-actions">
+    <button mat-button class="dialog-button yes-button" (click)="onConfirm()">SAVE</button>
+    <button mat-button class="dialog-button cancel-button" (click)="onCancel()">CANCEL</button>
+  </mat-dialog-actions>
+</div>

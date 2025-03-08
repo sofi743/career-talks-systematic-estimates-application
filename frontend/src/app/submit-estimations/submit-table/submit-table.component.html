@@ -1,0 +1,90 @@
+<div class="ifd">
+  <div class="selected hide-mobile">YOUR ESTIMATIONS</div>
+  <div class="submit-container" *ngIf="isLoaded$ | async; else loadingScreen">
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr *ngIf="isCurrentUserFeatureLead()" class="first-header">
+            <th>
+              <button
+                (click)="goToThePreviousUser()"
+                [disabled]="currentUser === users?.[0]"
+                class="offline-button"
+                mat-icon-button
+              >
+                <mat-icon>arrow_back_ios_new</mat-icon>
+              </button>
+            </th>
+            <th class="callsign" colspan="3">{{ currentUser?.callsign }}</th>
+            <th>
+              <button
+                (click)="goToTheNextUser()"
+                [disabled]="currentUser === users?.[users?.length - 1]"
+                class="offline-button"
+                mat-icon-button
+              >
+                <mat-icon>arrow_forward_ios</mat-icon>
+              </button>
+            </th>
+          </tr>
+          <tr>
+            <th>{{ _currentInfo?.task.name }}</th>
+            <th>BEST</th>
+            <th>LIKELY</th>
+            <th>WORST</th>
+            <th>COMMENTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let description of descriptions; let i = index">
+            <td
+              class="description-cell"
+              [class.required]="isFieldImportant(description)"
+              matTooltip="{{ description }}"
+              [matTooltipPosition]="'below'"
+            >
+              {{ description }}
+            </td>
+            <td>
+              <input
+                (beforeinput)="restrictInput($event)"
+                [(ngModel)]="estimations?.get(currentUser)?.[i].best"
+                type="number"
+              />
+            </td>
+            <td>
+              <input
+                (beforeinput)="restrictInput($event)"
+                [(ngModel)]="estimations?.get(currentUser)?.[i].likely"
+                type="number"
+              />
+            </td>
+            <td>
+              <input
+                (beforeinput)="restrictInput($event)"
+                [(ngModel)]="estimations?.get(currentUser)?.[i].worst"
+                type="number"
+              />
+            </td>
+            <td><input [(ngModel)]="estimations?.get(currentUser)?.[i].comments" type="text" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="button-container">
+      <button (click)="submitEstimations()" *ngIf="!(isLoadingSubmit$ | async); else loading" mat-button type="submit">
+        <span>{{ submitButton }}</span>
+      </button>
+      <span class="counter"
+        ><span>{{ (getSubmittedUsers$() | async)?.length }} / {{ (getOnlineUsers$() | async)?.length }} SUMBITTED</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-spinner color="primary" diameter="20" mode="indeterminate"></mat-progress-spinner>
+</ng-template>
+<ng-template #loadingScreen>
+  <app-loading-screen></app-loading-screen>
+</ng-template>

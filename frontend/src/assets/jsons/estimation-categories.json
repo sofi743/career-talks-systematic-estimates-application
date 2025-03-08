@@ -1,0 +1,92 @@
+[
+  {
+    "type": "STORY",
+    "label": "",
+    "taskFieldInfo": [
+      {
+        "keyName": "IMPLEMENTATION_TIME",
+        "description": "Implementation time",
+        "important": true
+      },
+      {
+        "keyName": "MANUAL_TESTING",
+        "description": "Manual testing by developer",
+        "important": true
+      },
+      {
+        "keyName": "UNIT_TESTING",
+        "description": "Unit testing",
+        "important": true
+      },
+      {
+        "keyName": "INSPECTOR_FLOW",
+        "description": "Inspector flow (PR inspection, draft inspections and comments)",
+        "important": true
+      },
+      {
+        "keyName": "OTHER",
+        "description": "Other (special environment and/or configuration, etc)",
+        "important": false
+      }
+    ]
+  },
+  {
+    "type": "MANUAL_TESTING",
+    "label": "Manual testing",
+    "taskFieldInfo": [
+      {
+        "keyName": "EXPLORATORY_TESTING",
+        "description": "Exploratory testing",
+        "important": true
+      },
+      {
+        "keyName": "PERFORMANCE_TESTING",
+        "description": "Performance testing",
+        "important": true
+      },
+      {
+        "keyName": "INTEGRATION_TESTING",
+        "description": "Integration testing",
+        "important": true
+      }
+    ]
+  },
+  {
+    "type": "FINDINGS",
+    "label": "Findings",
+    "taskFieldInfo": [
+      {
+        "keyName": "FINDINGS_FEATURE",
+        "description": "Findings during feature development",
+        "important": false
+      }
+    ]
+  },
+  {
+    "type": "DOCUMENTATION",
+    "label": "Documentation",
+    "taskFieldInfo": [
+      {
+        "keyName": "UPDATE_DOCUMENTATION",
+        "description": "Update Documentation",
+        "important": false
+      },
+      {
+        "keyName": "UX_TIME",
+        "description": "UX time",
+        "important": false
+      }
+    ]
+  },
+  {
+    "type": "MEETINGS",
+    "label": "Feature meetings",
+    "taskFieldInfo": [
+      {
+        "keyName": "Feature meetings",
+        "description": "Feature meetings for discussions with stakeholders and other key people",
+        "important": true
+      }
+    ]
+  }
+]

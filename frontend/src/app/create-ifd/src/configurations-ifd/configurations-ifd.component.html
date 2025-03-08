@@ -1,0 +1,43 @@
+<div class="estimation-info hide-mobile">
+  <div class="three-point-estimation">
+    <span>{{ estimationName }}</span>
+    <hr />
+  </div>
+  <div class="complexity">
+    <span>{{ configurationsParameter }}</span>
+    <input
+      type="number"
+      class="complexity-input"
+      [(ngModel)]="complexity"
+      (change)="onInputChange()"
+      (beforeinput)="checkInput($event)"
+    />
+  </div>
+  <div class="unit-of-measure">
+    <span>{{ measureUnit }}</span>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input
+          type="radio"
+          id="unit-of-measure-hours"
+          value="HOURS"
+          name="unit-of-measure"
+          [(ngModel)]="estimationType"
+          (change)="onInputChange()"
+        />
+        <label for="unit-of-measure-hours">Hours</label>
+      </div>
+      <div class="radio-option">
+        <input
+          type="radio"
+          id="unit-of-measure-days"
+          value="DAYS"
+          name="unit-of-measure"
+          [(ngModel)]="estimationType"
+          (change)="onInputChange()"
+        />
+        <label for="unit-of-measure-days">Days (8h)</label>
+      </div>
+    </div>
+  </div>
+</div>

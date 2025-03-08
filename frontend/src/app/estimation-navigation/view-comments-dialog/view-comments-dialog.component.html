@@ -1,0 +1,11 @@
+<div class="dialog-container">
+  <h1 (click)="onCancel()" class="dialog-header">{{ data.title }}</h1>
+  <div class="comment-section">
+    <div *ngFor="let comment of data.comments" class="comment-item">
+      <strong>{{ comment.user }}:</strong> {{ comment.comment }}
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <button mat-button class="dialog-button cancel-button" (click)="onCancel()">CLOSE</button>
+  </div>
+</div>

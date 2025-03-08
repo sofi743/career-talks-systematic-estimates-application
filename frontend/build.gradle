@@ -1,0 +1,36 @@
+plugins {
+  id 'java'
+  id 'com.github.node-gradle.node'
+}
+
+dependencies {
+  implementation libraries.gradle_node_plugin
+}
+
+task buildClient(type: NpmTask, dependsOn: 'npmInstall') {
+  group = 'build'
+  description = "Compile estimation session frontend"
+  args = ['run', 'build']
+}
+
+task dockerBuildImage(dependsOn: buildClient, type: Exec) {
+  commandLine "docker", "build", ".", "-t", "frontend-lobby", "--no-cache"
+}
+
+task deleteBuild(type: Delete) {
+    delete "build"
+}
+task deleteDist(type: Delete) {
+    delete "dist"
+}
+
+build.finalizedBy(dockerBuildImage)
+dockerBuildImage.finalizedBy(dockerCleanUp)
+dockerCleanUp.finalizedBy(deleteBuild)
+
+clean.finalizedBy(deleteDist)
+
+
+
+
+

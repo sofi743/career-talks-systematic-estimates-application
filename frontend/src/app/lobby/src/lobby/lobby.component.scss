@@ -1,0 +1,77 @@
+.lobby-container {
+  height: 100%;
+  width: 100%;
+}
+
+.hourglass {
+  height: 5%;
+}
+
+.lobby-message {
+  color: #064595;
+  height: 100%;
+  width: 100%;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-transform: uppercase;
+}
+
+.callsign {
+  color: black;
+}
+
+.avatars {
+  display: flex;
+  justify-content: center;
+  gap: 4%;
+  flex-wrap: wrap;
+  width: 25vw;
+}
+
+.icon {
+  height: 5vh;
+}
+
+.avatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1%;
+
+  mat-icon {
+    justify-content: center;
+    display: flex;
+    height: 5vh;
+    width: 5vh;
+    font-size: 5vh;
+  }
+}
+
+.wait-message {
+  font-size: 8vh;
+  margin-bottom: 0;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+}
+
+.sub-message {
+  font-size: 2vh;
+  color: black;
+  text-align: center;
+}
+
+.skip-button {
+  border-radius: 40px;
+  background: #064595;
+  color: white;
+  padding: 1px 20px;
+  margin-top: 5%;
+  &:hover {
+    background-color: #2d3958;
+  }
+}

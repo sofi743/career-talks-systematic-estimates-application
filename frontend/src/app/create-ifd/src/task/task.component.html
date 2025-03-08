@@ -1,0 +1,34 @@
+<div class="list-item">
+  <div class="task-name">
+    <img [src]="sourceUrl" alt="Task" class="icon" />
+    <h3 *ngIf="!(isInEditMode$ | async)">{{ datasource.name }}</h3>
+    <input
+      matInput
+      class="task-input"
+      #editTask
+      (focusout)="cancelEdit()"
+      (keyup.enter)="cancelEdit()"
+      *ngIf="isInEditMode$ | async"
+      [formControl]="editTaskInput"
+      [value]="datasource?.name"
+    />
+  </div>
+  <button
+    mat-icon-button
+    (click)="showContextMenu()"
+    [disabled]="isLoading$ | async"
+    class="more-menu-button"
+    [matMenuTriggerFor]="contextMenu"
+  >
+    <ng-container *ngIf="!(isLoading$ | async); else loading">
+      <mat-icon>more_vert</mat-icon>
+    </ng-container>
+  </button>
+</div>
+<ng-template #loading>
+  <mat-progress-spinner color="primary" diameter="20" mode="indeterminate"></mat-progress-spinner>
+</ng-template>
+<mat-menu #contextMenu>
+  <button mat-menu-item label="EDIT" (click)="startEdit()">EDIT</button>
+  <button mat-menu-item label="DELETE" (click)="delete()">DELETE</button>
+</mat-menu>

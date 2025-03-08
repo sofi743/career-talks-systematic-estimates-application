@@ -1,0 +1,31 @@
+<div class="lobby-container">
+  <div class="lobby-message">
+    <div class="avatars">
+      <div *ngFor="let joinedUser of getUsers$() | async" class="avatar">
+        <mat-icon *ngIf="!joinedUser.offline; else offlineIcon">account_circle</mat-icon>
+        <span class="callsign">{{ joinedUser.callsign }}</span>
+        <ng-template #offlineIcon>
+          <img alt="Offline user" class="icon" src="assets/account-icon.svg" />
+        </ng-template>
+      </div>
+    </div>
+    <p class="wait-message">
+      <span>PLEASE WAIT</span>
+    </p>
+    <p class="sub-message" *ngIf="!(isInitial() | async)">{{ waitEstimationMessage }}</p>
+    <p class="sub-message" *ngIf="(isInitial() | async)">{{ waitMessage }}</p>
+    <div *ngIf="!(isInitial() | async)" class="submitted">
+      <span>{{ (getSubmittedUsers$() | async)?.length }} / {{ (getOnlineUsers$() | async)?.length }} SUMBITTED</span>
+    </div>
+    <img alt="Animation GIF" class="hourglass" src="assets/hourglass.gif" title="https://www.flaticon.com/free-animated-icons/hourglass"
+    />
+    <ng-container *ngIf="isCurrentUserFeatureLead()">
+      <ng-container *ngIf="(isLoadingSkip$ | async) === false; else skipLoading">
+        <button (click)="skipEstimations()" class="skip-button" mat-button>SKIP ESTIMATION</button>
+      </ng-container>
+      <ng-template #skipLoading>
+        <mat-progress-spinner color="primary" diameter="20" mode="indeterminate"></mat-progress-spinner>
+      </ng-template>
+    </ng-container>
+  </div>
+</div>

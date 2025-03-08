@@ -1,0 +1,58 @@
+@use "responsive";
+
+.mvp {
+  border-bottom: 1px solid #b0b0b0;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 2%;
+  @include responsive.font-size;
+}
+
+.mvp-content {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.mvp-input {
+  max-width: 12vw;
+}
+
+h3 {
+  display: inline-block;
+  font-weight: 800;
+}
+
+.icon {
+  padding: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.tasks-content {
+  width: 100%;
+}
+
+@media (hover: hover) {
+  .mat-icon-button:hover:not([disabled]) {
+    background-color: grey;
+  }
+}
+
+
+@media (hover: none) {
+  .mat-icon-button:active:not([disabled]) {
+    background-color: grey;
+  }
+}
+
+.error {
+  color: red;
+}
+
+input {
+  padding: 10px;
+  margin: 5px;
+}

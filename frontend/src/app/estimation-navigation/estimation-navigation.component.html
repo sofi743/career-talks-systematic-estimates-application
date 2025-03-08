@@ -1,0 +1,59 @@
+<div class="main">
+  <div class="selected hide-mobile">ESTIMATION OVERVIEW</div>
+  <div *ngIf="!(isLoaded() | async)" class="loading-screen">
+    <app-loading-screen></app-loading-screen>
+  </div>
+  <div class="app-navigation-tabs-class" *ngIf="isLoaded() | async">
+    <app-navigation-tabs
+      (changeCurrentTask)="setSelectedTask($event)"
+      [selectedTaskId]="selectedTaskId"
+      [tasks]="tasks"
+      [disabled]="isGlobalLoading$ | async"
+    ></app-navigation-tabs>
+  </div>
+  <div>
+    <app-estimation-table class="app-navigation-table-class" [selectedTask]="selectedTask"></app-estimation-table>
+  </div>
+  <div class="actions" *ngIf="isLoaded() | async">
+    <div
+      [ngSwitch]="{
+        isLead: isCurrentUserFeatureLead(),
+        isLoading: isLoadingReest$ | async,
+        isSelectedTask: currentTaskId === selectedTask?.id
+      }"
+    >
+      <ng-container *ngSwitchCase="{ isLead: true, isLoading: false, isSelectedTask: true }">
+        <button (click)="reEstimate()" class="primary" mat-button>
+          {{ reEstimateButton }}
+        </button>
+      </ng-container>
+      <ng-container *ngSwitchCase="{ isLead: true, isLoading: true, isSelectedTask: true }">
+        <ng-template #loading>
+          <mat-progress-spinner color="primary" diameter="20" mode="indeterminate"></mat-progress-spinner>
+        </ng-template>
+      </ng-container>
+    </div>
+    <div class="actions">
+      <ng-container *ngIf="isCurrentUserFeatureLead() && currentTaskId === selectedTask?.id">
+        <ng-container *ngIf="(isLoadingReest$ | async) === false; else reEstimateLoading">
+          <button (click)="reEstimate()" [disabled]="isGlobalLoading$ | async" class="primary" mat-button>
+            {{ reEstimateButton }}
+          </button>
+        </ng-container>
+        <ng-template #reEstimateLoading>
+          <mat-progress-spinner color="primary" diameter="20" mode="indeterminate"></mat-progress-spinner>
+        </ng-template>
+      </ng-container>
+      <ng-container *ngIf="isCurrentUserFeatureLead() && currentTaskId === selectedTask?.id">
+        <ng-container *ngIf="(isLoadingNext$ | async) === false; else nextLoading">
+          <button (click)="next()" [disabled]="isGlobalLoading$ | async" class="primary" mat-button>
+            {{ currentAction }}
+          </button>
+        </ng-container>
+        <ng-template #nextLoading>
+          <mat-progress-spinner color="primary" diameter="20" mode="indeterminate"></mat-progress-spinner>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+</div>

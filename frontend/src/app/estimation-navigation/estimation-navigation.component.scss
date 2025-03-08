@@ -1,0 +1,102 @@
+@use "responsive";
+
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #f1f1f1;
+  border-radius: 50px 0 0 50px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-transform: uppercase;
+}
+
+.selected {
+  border-radius: 50px 0 0;
+  color: #064595;
+  padding: 2vh 2vh 1vh;
+  margin: 0;
+  display: flex;
+  @include responsive.title-font-size;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.app-navigation-tabs-class {
+  display: flex;
+  padding-bottom: 2vh;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-shrink: 0;
+  width: 100%;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  font-size: min(0.8vw, 2vh);
+}
+
+.loading-screen {
+  height: 100%;
+}
+
+.app-navigation-table-class {
+  display: flex;
+  justify-content: center !important;
+}
+
+.comment-button {
+  background-color: #2d3958;
+  margin-left: 1.5rem;
+  margin-top: 2rem;
+  padding: 20px 0px;
+  border: none;
+  border-radius: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 3px 3px 8px #9a9a9a;
+
+  i.material-icons {
+    color: #f1f1f1;
+    font-size: 24px;
+  }
+
+  &:hover {
+    background-color: #064595;
+  }
+}
+
+.actions {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1vh;
+  margin-top: auto;
+  flex-shrink: 0;
+  position: relative;
+  bottom: 0;
+}
+
+.actions button.primary {
+  background-color: #064595;
+  color: white !important;
+  padding: 1px 20px;
+  border-radius: 20px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  @include responsive.button-font-size;
+}
+
+.actions button.primary:hover {
+  background-color: #2d3958;
+}
+
+.actions button[disabled] {
+  background-color: #9a9a9a;
+  cursor: not-allowed;
+  opacity: 0.7;
+  pointer-events: none;
+}

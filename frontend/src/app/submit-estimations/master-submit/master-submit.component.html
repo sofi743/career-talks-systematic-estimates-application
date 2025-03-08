@@ -1,0 +1,23 @@
+<div class="estimation-info">
+  <div class="currently-estimating">
+    <span>{{ currentlyEstimating }}</span>
+    <hr />
+  </div>
+  <div class="current-info">
+    <div class="info">
+      <img alt="Task" class="icon" src="./assets/storywhite.svg" />
+      <p class="category">Task: </p>
+      <p class="text">{{ _currentInfo?.task.name }}</p>
+    </div>
+    <div class="info">
+      <img alt="Mvp" class="icon" src="./assets/mvpwhite.svg" />
+      <p class="category">MVP: </p>
+      <p class="text">{{ _currentInfo?.mvpName }}</p>
+    </div>
+    <div class="info">
+      <img alt="Ifd" class="icon" src="./assets/ifdwhite.svg" />
+      <p class="category">IFD #</p>
+      <p class="text">{{ _currentInfo?.ifdNumber }}</p>
+    </div>
+  </div>
+</div>

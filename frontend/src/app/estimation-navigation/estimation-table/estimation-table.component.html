@@ -1,0 +1,173 @@
+<div class="table-container" *ngIf="isLoaded() | async">
+  <table>
+    <tr>
+      <td class="top-left-corner thead-row"></td>
+      <ng-container *ngFor="let callsign of allCallsigns; let i = index">
+        <td
+          class="callsign thead-row"
+          [ngClass]="{
+            'last-callsign': (!isCurrentUserFeatureLead() || !isCurrentTaskSelected()) && i === allCallsigns?.length - 1
+          }"
+          colspan="3"
+        >
+          {{ callsign }}
+        </td>
+      </ng-container>
+      <th *ngIf="isCurrentTaskSelected() && isCurrentUserFeatureLead()" class="finalcallsign thead-row" colspan="3">
+        FINAL
+      </th>
+      <td class="empty thead-row">EMPTY</td>
+    </tr>
+    <tr>
+      <td class="thead-row-two current-task">{{ selectedTask?.name }}</td>
+      <ng-container *ngFor="let callsign of allCallsigns">
+        <ng-container *ngFor="let label of labels">
+          <td
+            [ngClass]="{
+              best: label === 'B'
+            }"
+            class="thead-row-two"
+          >
+            {{ label }}
+          </td>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="isCurrentTaskSelected() && isCurrentUserFeatureLead()">
+        <ng-container *ngFor="let label of labels">
+          <td
+            [ngClass]="{
+              best: label === 'B'
+            }"
+            class="thead-row-two"
+          >
+            {{ label }}
+          </td>
+        </ng-container>
+      </ng-container>
+      <td class="empty thead-row-two"></td>
+    </tr>
+    <tr *ngFor="let row of taskRows | keyvalue: sortTaskRows; let i = index" class="tbody">
+      <td
+        class="description-cell"
+        matTooltip="{{ taskJsonService.getLabelOfKey(row.key) }}"
+        [matTooltipPosition]="'below'"
+      >
+        {{ taskJsonService.getLabelOfKey(row.key) }}
+      </td>
+      <ng-container *ngFor="let callsign of allCallsigns; let userIndex = index">
+        <td
+          (click)="changeBestEstimate(row.key, row.value[callsign]?.best, i, userIndex)"
+          [ngClass]="{
+            active:
+              activeBestIndexes[i]?.userIndex === userIndex && isCurrentTaskSelected() && isCurrentUserFeatureLead(),
+            selectable: isCurrentTaskSelected() && isCurrentUserFeatureLead(),
+            old: !isCurrentTaskSelected(),
+            odd: userIndex % 2 == 0
+          }"
+          class="best"
+        >
+          {{ row.value[callsign]?.best }}
+        </td>
+
+        <td
+          (click)="changeLikelyEstimate(row.key, row.value[callsign]?.likely, i, userIndex)"
+          [ngClass]="{
+            active:
+              activeLikelyIndexes[i]?.userIndex === userIndex && isCurrentTaskSelected() && isCurrentUserFeatureLead(),
+            selectable: isCurrentTaskSelected() && isCurrentUserFeatureLead(),
+            old: !isCurrentTaskSelected(),
+            odd: userIndex % 2 == 0
+          }"
+          class="likely"
+        >
+          {{ row.value[callsign]?.likely }}
+        </td>
+
+        <td
+          (click)="changeWorstEstimate(row.key, row.value[callsign]?.worst, i, userIndex)"
+          [ngClass]="{
+            active:
+              activeWorstIndexes[i]?.userIndex === userIndex && isCurrentTaskSelected() && isCurrentUserFeatureLead(),
+            selectable: isCurrentTaskSelected() && isCurrentUserFeatureLead(),
+            old: !isCurrentTaskSelected(),
+            odd: userIndex % 2 == 0
+          }"
+          class="worst"
+        >
+          {{ row.value[callsign]?.worst }}
+        </td>
+      </ng-container>
+      <!-- FINAL estimates with input fields -->
+      <td *ngIf="isCurrentTaskSelected() && isCurrentUserFeatureLead()" class="input-cell">
+        <input
+          (input)="deselectBest(i, -1)"
+          (ngModelChange)="calculateTotals()"
+          [(ngModel)]="finalEstimates[row.key].best"
+          placeholder="B"
+          type="number"
+        />
+      </td>
+      <td *ngIf="isCurrentTaskSelected() && isCurrentUserFeatureLead()" class="input-cell">
+        <input
+          (input)="deselectLikely(i, -1)"
+          (ngModelChange)="calculateTotals()"
+          [(ngModel)]="finalEstimates[row.key].likely"
+          placeholder="L"
+          type="number"
+        />
+      </td>
+      <td *ngIf="isCurrentTaskSelected() && isCurrentUserFeatureLead()" class="input-cell">
+        <input
+          (input)="deselectWorst(i, -1)"
+          (ngModelChange)="calculateTotals()"
+          [(ngModel)]="finalEstimates[row.key].worst"
+          placeholder="W"
+          type="number"
+        />
+      </td>
+      <td class="input-cell comments">
+        <button
+          (click)="showComments(row.key)"
+          *ngIf="getComments(row.key)?.length > 0; else noComments"
+          class="field-comment-button"
+          mat-button
+        >
+          <i class="material-icons">mark_unread_chat_alt</i>
+        </button>
+        <ng-template #noComments>
+          <button mat-button class="field-comment-button">
+            <i class="material-icons">chat_bubble_outline</i>
+          </button>
+        </ng-template>
+      </td>
+    </tr>
+    <tr class="total-row">
+      <td class="bottom-left-corner">Totals</td>
+      <ng-container *ngFor="let callsign of allCallsigns; let i = index">
+        <td class="best">{{ totals[callsign].best }}</td>
+        <td>{{ totals[callsign].likely }}</td>
+        <td
+          [ngClass]="{
+            'worst-round': (!isCurrentTaskSelected() || !isCurrentUserFeatureLead()) && i === allCallsigns?.length - 1
+          }"
+        >
+          {{ totals[callsign].worst }}
+        </td>
+      </ng-container>
+      <td *ngIf="isCurrentTaskSelected() && isCurrentUserFeatureLead()" class="best input-cell">
+        {{ finalTotals.best }}
+      </td>
+      <td *ngIf="isCurrentTaskSelected() && isCurrentUserFeatureLead()">{{ finalTotals.likely }}</td>
+      <td *ngIf="isCurrentTaskSelected() && isCurrentUserFeatureLead()" class="last-total">{{ finalTotals.worst }}</td>
+      <td class="task-comment">
+        <div *ngIf="selectedTask">
+          <button (click)="addComment()" class="comment-button" mat-button>
+            <i class="material-icons">
+              {{ selectedTask?.comments ? 'insert_comment' : 'add_comment' }}
+            </i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

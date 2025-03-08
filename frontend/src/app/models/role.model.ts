@@ -1,0 +1,4 @@
+export enum Role {
+  FEATURE_LEAD = 'FEATURE_LEAD',
+  PARTICIPANT = 'PARTICIPANT'
+}

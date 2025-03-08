@@ -1,0 +1,50 @@
+@use "responsive";
+
+.dialog-container {
+  border-radius: 20px 20px 20px 20px;
+  max-width: 100%;
+  min-width: 350px;
+  @include responsive.for-tablet {
+    width: 350px;
+  }
+}
+
+.dialog-header {
+  background-color: #f1f1f1;
+  color: #064595;
+  font-size: large;
+  padding: 5px;
+  font-weight: bold;
+  text-align: center;
+  padding-left: 15px;
+  text-transform: uppercase;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #2d3958;
+}
+
+.dialog-button {
+  font-weight: bold;
+}
+
+.cancel-button {
+  color: white;
+
+  &:hover {
+    background-color: #064595;
+  }
+}
+
+.error {
+  color: red;
+}
+
+.comment-section {
+  font-size: large;
+  background-color: white;
+  padding: 20px;
+  height: 100%;
+}

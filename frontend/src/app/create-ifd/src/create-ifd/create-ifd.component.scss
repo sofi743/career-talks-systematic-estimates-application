@@ -1,0 +1,262 @@
+@use "responsive";
+
+.loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+}
+
+.panel-header {
+  background: #212635;
+  color: white;
+  padding-left: 1%;
+  height: 2rem;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  @include responsive.for-tablet {
+    min-height: 3rem;
+  }
+}
+
+.ifd {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f1f1f1;
+  border-radius: 50px 0 0 50px;
+  overflow: hidden;
+  font-family: 'Poppins', system-ui;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.ifd-container {
+  width: 80%;
+  flex-shrink: 1;
+  height: 80%;
+  background: white;
+  z-index: 10;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.selected {
+  border-radius: 50px 0 0;
+  background: #f1f1f1;
+  color: #064595;
+  padding: 2vh 0 0 0;
+  margin: 0;
+  display: flex;
+  @include responsive.title-font-size;
+  width: 95%;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: center;
+  padding: 2%;
+  align-items: center;
+
+  button {
+    margin-bottom: 5%;
+    align-self: center;
+    padding: 10px;
+    border: none;
+    border-radius: 40px;
+    color: #f1f1f1 !important;
+    background: #064595;
+    font-weight: bold;
+
+    &:hover:not([disabled]) {
+      background: #2d3958;
+    }
+
+    &[disabled] {
+      color: #9a9a9a !important;
+      background: #d5dfee;
+    }
+  }
+}
+
+.mat-button {
+  align-self: flex-start;
+  background: white;
+  position: sticky;
+  top: 0;
+  gap: 3px;
+  @include responsive.button-font-size;
+  min-width: unset;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1%;
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+}
+
+.panel {
+  > * {
+    padding-left: 3%;
+  }
+}
+
+mat-input {
+  ::ng-deep .mat-form-field-appearance-outline {
+    width: unset;
+  }
+}
+
+.button-header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 11;
+  margin-left: 2%;
+  min-width: unset;
+  button {
+    padding: 10px;
+  }
+  @include responsive.small-screen {
+    ::ng-deep mat-label {
+      display: none !important;
+    }
+  }
+}
+
+.users {
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+  padding: 1%;
+  flex-wrap: wrap;
+  width: 80%;
+  text-transform: uppercase;
+}
+
+.user-info {
+  color: #064595;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  > mat-icon {
+    font-size: min(5vh, 10vw);
+    height: auto;
+    width: auto;
+  }
+
+  &:hover {
+    > .close {
+      display: flex;
+      font-size: 1.2rem;
+      align-self: flex-end;
+      z-index: 100000;
+      position: absolute;
+      top: -0.5rem;
+      right: -0.5rem;
+      color: red;
+      cursor: pointer;
+    }
+  }
+}
+
+.account {
+  height: min(5vh, 10vw);
+}
+
+.callsign {
+  color: black;
+}
+
+.close {
+  display: none;
+}
+
+.offline-button {
+  background: none;
+  justify-content: center;
+  color: #212635;
+  align-items: center;
+  padding: 0;
+  border-radius: 40px;
+  flex-direction: column;
+  display: flex;
+
+  > mat-icon {
+    font-size: 2rem;
+    @include responsive.for-tablet {
+      font-size: 2.5rem;
+    }
+    height: auto;
+    width: auto;
+  }
+
+  &:hover {
+    background: #91b5c98f !important;
+  }
+}
+
+.hint {
+  color: #064594;
+  @include responsive.button-font-size;
+}
+
+.arrow {
+  background: none;
+  justify-content: center;
+  color: #064594;
+  align-items: center;
+  border: none;
+  padding: 0 0.25rem;
+
+  &:hover:not([disabled]) {
+    color: #212635;
+    padding: 0rem;
+
+    > mat-icon {
+      font-size: 2rem;
+    }
+  }
+
+  > mat-icon {
+    font-size: 1.5rem;
+    height: auto;
+    width: auto;
+  }
+}
+
+.page-number {
+  width: 100%;
+  margin-top: -1%;
+  margin-right: 2%;
+  padding-bottom: 1%;
+  color: black;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  text-transform: uppercase;
+}

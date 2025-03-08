@@ -1,0 +1,50 @@
+@use "responsive";
+.custom-tabs {
+  display: flex;
+  background-color: #d5dfee;
+  border-radius: 20px;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  justify-content: center;
+  align-items: center;
+  margin: 2vh;
+}
+
+.custom-tabs .tab {
+  height: 100%;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &.active {
+    cursor: pointer;
+    border-radius: 20px !important;
+    background-color: #095bd9;
+    box-shadow: 0px 0px 15px #000000;
+    color: #ffffff;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: default;
+    color: #9a9a9a;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+  max-height: 12vh;
+  padding: 2vh;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  border-radius: 30px !important;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
