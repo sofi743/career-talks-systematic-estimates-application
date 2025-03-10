@@ -1,0 +1,60 @@
+#to run this execute docker compose up from location
+
+version: '3.8'
+name: "estimates-demo"
+
+services:
+  # Frontend service
+  frontend:
+    image: frontend:latest
+    container_name: fronted
+    ports:
+      - "4201:80"  # Port 4201 on host maps to 80 in the container
+    networks:
+      - estimates_network
+
+  # Backend service
+  backend:
+    image: backend:latest
+    container_name: backend
+    ports:
+      - "8080:8080"
+      - "5000:5005"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/estimates-application
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: pass
+#    restart: unless-stopped
+    networks:
+      - estimates_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  #DB service
+  postgres:
+    image: postgres:16-alpine3.20
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: estimates-application
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      ENGINE_HOST: "host.docker.internal"
+      ENGINE_PORT: "2375"
+      DOCKER_HOST: tcp://host.docker.internal:2375
+    networks:
+      - estimates_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+
+
+networks:
+  mxestimates_network:
+    name: estimates_network
+
+volumes:
+  postgres_data:

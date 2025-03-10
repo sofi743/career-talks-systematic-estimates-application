@@ -1,3 +1,6 @@
+##build this image command, executing this from Dockerfile location (backend folder)
+## docker build -t frontend .
+
 ############## Stage 1: Build the application
 # Uses the latest node version and makes a refference to be used later
 FROM node-14.21.3 AS build
