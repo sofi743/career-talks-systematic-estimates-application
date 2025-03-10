@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 
 // TODO ex 1.a. set up routes for component
 
-const routes: Routes = [];
+const routes: Routes = [{path: '', component: LoginComponent, outlet: 'detail'}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

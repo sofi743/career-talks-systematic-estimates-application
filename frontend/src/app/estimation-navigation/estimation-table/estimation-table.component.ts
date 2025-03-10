@@ -113,9 +113,6 @@ export class EstimationTableComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   // TODO 2.c. sort rows based on id
-  public sortTaskRows = (): number => {
-    return 0;
-  };
 
   public saveFinalEstimations() {
     const finalEstimations: TaskFieldEstimation[] = Object.keys(this.finalEstimates).map(key => {
@@ -258,4 +255,5 @@ export class EstimationTableComponent implements OnInit, OnDestroy, OnChanges {
   public deselectWorst(i: number, userIndex: number) {
     this.activeWorstIndexes[i] = { userIndex: userIndex };
   }
+
 }
